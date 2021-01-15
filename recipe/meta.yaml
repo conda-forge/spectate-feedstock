@@ -1,5 +1,5 @@
 {% set name = "spectate" %}
-{% set version = "0.4.1" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d4d985589d755b4bf118696eb794bc35c4131809be812eecd95fd9938809efbf
+  sha256: a7eb2d4d5c2d64cd8b9614f8590a5d1816be88f6e3572963e9f02f7c43502709
 
 build:
-  noarch: python
   skip: true  # [win]
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
@@ -36,7 +35,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'A library for Python 2 and 3 that can track changes to mutable data types.'
+  summary: A library for Python 2 and 3 that can track changes to mutable data types.
 
   description: |
     With spectate complicated protocols for managing updates, don't need to be 
