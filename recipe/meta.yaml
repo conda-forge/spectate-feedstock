@@ -2,7 +2,7 @@
 {% set version = "1.0.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -10,7 +10,8 @@ source:
   sha256: a7eb2d4d5c2d64cd8b9614f8590a5d1816be88f6e3572963e9f02f7c43502709
 
 build:
-  number: 1
+  number: 2
+  skip: true  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
