@@ -36,7 +36,7 @@ test:
     - pytest-cov
   commands:
     - pip check
-    - cd src && pytest --cov spectate --cov-report term-missing:skip-covered --cov-fail-under 92
+    - cd src && pytest --cov spectate --cov-report term-missing:skip-covered --cov-fail-under 91
 
 about:
   home: https://github.com/rmorshea/spectate
