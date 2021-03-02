@@ -15,15 +15,15 @@ source:
 
 build:
   number: 2
-  skip: true  # [py<36]
+  noarch: python
   script: cd dist && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
   run:
-    - python
+    - python >=3.6
 
 test:
   source_files:
@@ -36,7 +36,7 @@ test:
     - pytest-cov
   commands:
     - pip check
-    - cd src && pytest --cov spectate --cov-report term-missing:skip-covered
+    - cd src && pytest --cov spectate --cov-report term-missing:skip-covered --cov-fail-under 92
 
 about:
   home: https://github.com/rmorshea/spectate
