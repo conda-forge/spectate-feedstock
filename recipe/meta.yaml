@@ -2,46 +2,54 @@
 {% set version = "1.0.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a7eb2d4d5c2d64cd8b9614f8590a5d1816be88f6e3572963e9f02f7c43502709
+  - folder: dist
+    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: a7eb2d4d5c2d64cd8b9614f8590a5d1816be88f6e3572963e9f02f7c43502709
+  - folder: src
+    url: https://github.com/rmorshea/{{ name }}/archive/{{ version }}.tar.gz
+    sha256: bd3ea89c25e52a61601d645407a43b94b9593d6c546e5372e97c32d55f6b915c
 
 build:
-  skip: true  # [win]
-  number: 1
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  number: 2
+  noarch: python
+  script: cd dist && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
   run:
-    - python
+    - python >=3.6
 
 test:
+  source_files:
+    - src/tests
   imports:
     - spectate
   requires:
+    - pip
     - pytest
+    - pytest-cov
   commands:
-    - cd test && python -m test_core.py
-
+    - pip check
+    - cd src && pytest --cov spectate --cov-report term-missing:skip-covered --cov-fail-under 91
 
 about:
-  home: https://github.com/rmorshea/spectate/
+  home: https://github.com/rmorshea/spectate
   license: MIT
   license_family: MIT
-  license_file: LICENSE
-  summary: A library for Python 2 and 3 that can track changes to mutable data types.
+  license_file: dist/LICENSE
+  summary: Track changes to mutable data types.
 
   description: |
-    With spectate complicated protocols for managing updates, don't need to be 
-    the outward responsibility of a user, and can instead be done automagically 
-    in the background. For instance, syncing the state between a server and 
-    client can controlled by spectate so user's don't have to.
+    With spectate, complicated protocols for managing updates don't need to 
+    be the outward responsibility of a user and can instead be done automagically 
+    in the background. For instance, syncing the state between a server and client 
+    can controlled by spectate, so users don't have to.
   doc_url: https://python-spectate.readthedocs.io/en/latest/
   dev_url: https://github.com/rmorshea/spectate/
 
