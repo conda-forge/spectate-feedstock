@@ -1,5 +1,5 @@
 {% set name = "spectate" %}
-{% set version = "1.0.0" %}
+{% set version = "1.0.1" %}
 
 package:
   name: {{ name }}
@@ -8,13 +8,13 @@ package:
 source:
   - folder: dist
     url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: a7eb2d4d5c2d64cd8b9614f8590a5d1816be88f6e3572963e9f02f7c43502709
+    sha256: 49a2dde0962fcecf120cb361cc293989489078eb29ba1d8c3d342a741e898b7e
   - folder: src
     url: https://github.com/rmorshea/{{ name }}/archive/{{ version }}.tar.gz
-    sha256: bd3ea89c25e52a61601d645407a43b94b9593d6c546e5372e97c32d55f6b915c
+    sha256: f39f5fc6bc39afbff34975745dca14820e157e6e68e9a76877e6c7fe50818fe5
 
 build:
-  number: 2
+  number: 0
   noarch: python
   script: cd dist && {{ PYTHON }} -m pip install . --no-deps -vv
 
