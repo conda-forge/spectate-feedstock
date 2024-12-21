@@ -7,23 +7,23 @@ package:
 
 source:
   - folder: dist
-    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
     sha256: 49a2dde0962fcecf120cb361cc293989489078eb29ba1d8c3d342a741e898b7e
   - folder: src
     url: https://github.com/rmorshea/{{ name }}/archive/{{ version }}.tar.gz
     sha256: f39f5fc6bc39afbff34975745dca14820e157e6e68e9a76877e6c7fe50818fe5
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: cd dist && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   source_files:
@@ -34,6 +34,7 @@ test:
     - pip
     - pytest
     - pytest-cov
+    - python {{ python_min }}
   commands:
     - pip check
     - cd src && pytest --cov spectate --cov-report term-missing:skip-covered --cov-fail-under 91
